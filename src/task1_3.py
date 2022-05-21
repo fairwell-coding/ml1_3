@@ -8,17 +8,27 @@ from task1_1 import KNearestNeighborsClassifier
 from sklearn.model_selection import cross_val_score
 
 
-
 if __name__ == '__main__':
   X_train, X_test, y_train, y_test = get_toy_dataset(2, apply_noise=True)
-  for k in [1, 30, 100]:
-    # TODO fit your KNearestNeighborsClassifier with k in {1, 30, 100} and plot the decision boundaries
-    clf = ...
-    # TODO you can use the `cross_val_score` method to manually perform cross-validation
-    # TODO report mean cross-validated scores!
+
+  for k in [1, 5, 20, 50, 100]:
+    clf = KNearestNeighborsClassifier(k)
+    clf.fit(X_train, y_train)
+
+    cv_score = cross_val_score(clf, X_test, y_test, n_jobs=-1)
+    print(f"Mean cross validation score for k={k}: {np.mean(cv_score)}")
+
     test_score = clf.score(X_test, y_test)
     print(f"Test Score for k={k}: {test_score}")
-    # TODO plot the decision boundaries!
+
+    # plot dataset with decision boundary
+    plt.figure()
+    plt.title(f'Noisy dataset 2 for k = {k} with decision boundary')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plotting.plot_decision_boundary(X_train, clf)
+    plotting.plot_dataset(X_train, X_test, y_train, y_test)
+    plt.show()
 
   # TODO find the best parameters for the noisy dataset!
   knn = KNearestNeighborsClassifier()
