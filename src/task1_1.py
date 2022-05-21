@@ -16,7 +16,7 @@ class KNearestNeighborsClassifier(BaseEstimator):
     y_pred = self.predict(X)
     return np.mean(y_pred == y)
 
-  def predict_old(self, X_test):
+  def predict_iteratively(self, X_test):
     """ Implements predict method by looping over test samples.
     """
 
