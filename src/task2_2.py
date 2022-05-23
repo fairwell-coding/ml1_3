@@ -7,7 +7,7 @@ from task2_1 import LinearSVM
 from sklearn.model_selection import GridSearchCV
 
 
-RANDOM_SEED = 28  # 33, 28
+RANDOM_SEED = 28
 
 
 def __find_optimal_parameters_using_gridsearch():
@@ -40,13 +40,13 @@ def __use_best_parameters_to_instantiate_linear_svm(C, eta):
   scores = svm.fit(X_train, y_train)
 
   plt.figure()
-  plt.title("Training loss curve")
+  plt.title(f"Training loss curve: C={C}, eta={eta}")
   plt.xlabel('epochs/iterations')
   plt.ylabel('training loss')
   plt.plot(scores)
 
   plt.figure()
-  plt.title("Training loss curve (y-axis clipped)")
+  plt.title(f"Training loss curve (y-axis clipped): C={C}, eta={eta}")
   plt.xlabel('epochs/iterations')
   plt.ylabel('training loss')
   plt.ylim(0, 200)
@@ -60,7 +60,7 @@ def __use_best_parameters_to_instantiate_linear_svm(C, eta):
 
 def __plot_dataset_with_decision_boundary(svm):
   plt.figure()
-  plt.title(f'Dataset 1 (outlier removed) with decision boundary')
+  plt.title(f'Dataset 1 (no outlier) with decision boundary C={svm.C}, eta={svm.eta}')
   plt.xlabel('x1')
   plt.ylabel('x2')
   plotting.plot_decision_boundary(X_train, svm)
@@ -72,6 +72,12 @@ if __name__ == '__main__':
   np.random.seed(RANDOM_SEED)
   X_train, X_test, y_train, y_test = get_toy_dataset(1, remove_outlier=True)
 
-  # C, eta = __find_optimal_parameters_using_gridsearch()
+  # Add additional outliers to test behaviour
+  # X_train = np.concatenate((X_train, np.array([-0.5, 5]).reshape((1, 2))), axis=0)
+  # X_train = np.concatenate((X_train, np.array([-0.5, 5.2]).reshape((1, 2))), axis=0)
+  # y_train = np.hstack((y_train, 0))
+  # y_train = np.hstack((y_train, 0))
+
+  C, eta = __find_optimal_parameters_using_gridsearch()
   svm = __use_best_parameters_to_instantiate_linear_svm(100, 1e-3)
   __plot_dataset_with_decision_boundary(svm)

@@ -53,10 +53,7 @@ class LinearSVM(BaseEstimator):
       if len(loss_list) >= 2 and np.isclose(loss_list[-2], loss_list[-1], rtol=self.tolerance):
         break
 
-      # if len(loss_list) >= 6 and np.isclose(loss_list[-6:-1], loss_list[-1], rtol=self.tolerance):
-      #   break
-
-    print(f'Model fit: C = {self.C}, eta = {self.eta}, tolerance = {self.tolerance}, num_epochs = {len(loss_list)}')
+    # print(f'Model fit: C = {self.C}, eta = {self.eta}, tolerance = {self.tolerance}, num_epochs = {len(loss_list)}')
 
     return loss_list
 
