@@ -13,7 +13,6 @@ RANDOM_SEED = 42
 def __plot_decision_boundary(clf, idx, X_train, X_test, y_train, y_test):
   plt.figure()
   plt.title(f'Dataset {idx}, max_depth = {clf.best_params_["max_depth"]}, n_estimators = {clf.estimator.n_estimators}')
-  # plt.title(f'RFC: Dataset {idx}, max_depth = {clf.max_depth} with decision boundary')
   plt.xlabel('x1')
   plt.ylabel('x2')
   plotting.plot_decision_boundary(X_train, clf)
