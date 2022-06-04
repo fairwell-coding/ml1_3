@@ -53,13 +53,13 @@ class LinearSVM(BaseEstimator):
       if len(loss_list) >= 2 and np.isclose(loss_list[-2], loss_list[-1], rtol=self.tolerance):
         break
 
-    # print(f'Model fit: C = {self.C}, eta = {self.eta}, tolerance = {self.tolerance}, num_epochs = {len(loss_list)}')
+    print(f'Model fit: C = {self.C}, eta = {self.eta}, tolerance = {self.tolerance}, num_epochs = {len(loss_list)}')
 
     return loss_list
 
   def predict(self, X):
     y_regressed = X @ self.w + self.b  # predition regression value of model
-    y_pred = np.where(np.tanh(y_regressed) > 0, 1, -1)  # decide on binary class label based on regressed value
+    y_pred = np.where(np.sign(y_regressed) > 0, 1, -1)  # decide on binary class label based on regressed value
 
     # converting y_pred from {-1, 1} to {0, 1}
     return np.where(y_pred == -1, 0, 1)
